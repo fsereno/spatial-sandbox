@@ -1,34 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import { createRoot } from 'react-dom/client'
+import { Canvas } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber';
 
-//import { Canvas } from '@react-three/fiber'
-//import { XR, createXRStore } from '@react-three/xr'
-//import { useState } from 'react'
-
-//https://r3f.docs.pmnd.rs/getting-started/installation
-//https://github.com/pmndrs/xr
-
-//const store = createXRStore()
+//https://r3f.docs.pmnd.rs/getting-started/your-first-scene
+//https://r3f.docs.pmnd.rs/getting-started/examples
+//https://codesandbox.io/p/sandbox/react-xr-simple-ar-demo-8w8hm
 
 function App() {
-  //const [red, setRed] = useState(false)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Canvas>
+      <mesh>
+        <boxGeometry args={[2, 2, 2]} />
+        <meshPhongMaterial />
+      </mesh>
+      <ambientLight intensity={0.1} />
+      <directionalLight position={[0, 0, 5]} color="red" />
+    </Canvas>
+    </>
   );
 }
 
