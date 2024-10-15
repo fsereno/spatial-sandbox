@@ -1,12 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import * as THREE from 'three'
+import { DoubleSide } from 'three';
 import { createRoot } from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
 import { useFrame } from '@react-three/fiber';
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useState, useRef } from 'react'
 import { Interactive, XR, ARButton, Controllers } from '@react-three/xr'
-import { Text } from '@react-three/drei'
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, useCursor, CameraControls, Gltf, Text, Preload, MeshPortalMaterial } from '@react-three/drei';
+import { useRoute, useLocation } from 'wouter'
+import { easing, geometry } from 'maath'
+import { suspend } from 'suspend-react'
 
 //https://r3f.docs.pmnd.rs/getting-started/your-first-scene
 //https://r3f.docs.pmnd.rs/getting-started/examples
@@ -43,22 +47,54 @@ function Button(props) {
   )
 }
 
+function Panel1() {
+  return (
+    <mesh position={[-1.5, 0.1, -0.2]}>
+      <planeGeometry  />
+      <meshBasicMaterial color="blue" />
+    </mesh>
+  );
+}
+
+function Panel2() {
+  return (
+    <mesh position={[0, 0.1, -0.2]}>
+      <planeGeometry  />
+      <meshBasicMaterial color="green" />
+    </mesh>
+  );
+}
+
+function Panel3() {
+  return (
+    <mesh position={[1.5, 0.1, -0.2]}>
+      <planeGeometry />
+      <meshBasicMaterial color="red" />
+    </mesh>
+  );
+}
+
 function App() {
   return (
     <>
-    <ARButton />
-    <div style={{ height: '100vh', width: '100vw' }}>
-    <Canvas>
-      <XR referenceSpace="local">
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <Button position={[0, 0.1, -0.2]} />
-        <Controllers />
-        <OrbitControls maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2}/>
-      </XR>
-    </Canvas>
-    </div>
-  </>
+      <ARButton />
+      <div style={{ height: '100vh', width: '100vw' }}>
+        <Canvas>
+          <XR referenceSpace="local">
+            <ambientLight />
+            <pointLight position={[10, 10, 10]} />
+            <Button position={[0, 1, -0.2]} />
+            <group>
+              <Panel1 />
+              <Panel2 />
+              <Panel3 />
+            </group>
+            <Controllers />
+            <OrbitControls maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} />
+          </XR>
+        </Canvas>
+      </div>
+    </>
   );
 }
 
