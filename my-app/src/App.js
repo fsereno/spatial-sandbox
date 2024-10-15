@@ -50,7 +50,7 @@ function Button(props) {
 function Panel1() {
   return (
     <mesh position={[-1.5, 0.1, -0.2]}>
-      <planeGeometry  />
+      <planeGeometry />
       <meshBasicMaterial color="blue" />
     </mesh>
   );
@@ -59,8 +59,8 @@ function Panel1() {
 function Panel2() {
   return (
     <mesh position={[0, 0.1, -0.2]}>
-      <planeGeometry  />
-      <meshBasicMaterial color="green" />
+      <planeGeometry />
+      <meshBasicMaterial color="dark-grey" />
     </mesh>
   );
 }
@@ -69,7 +69,34 @@ function Panel3() {
   return (
     <mesh position={[1.5, 0.1, -0.2]}>
       <planeGeometry />
-      <meshBasicMaterial color="red" />
+      <meshBasicMaterial color="gray" />
+    </mesh>
+  );
+}
+
+function LeftPanel() {
+  return (
+    <mesh position={[-1.5, 0.5, -2.5]}>
+      <planeGeometry width={0.5} height={1} depth={0.1} />
+      <meshBasicMaterial color="gray" />
+    </mesh>
+  );
+}
+
+function MainPanel() {
+  return (
+    <mesh position={[0, 0.5, -2.5]}>
+      <planeGeometry width={1} height={0.75} />
+      <meshBasicMaterial color="white" />
+    </mesh>
+  );
+}
+
+function RightPanel() {
+  return (
+    <mesh position={[1.5, 0.5, -2.5]}>
+      <planeGeometry width={0.5} height={1} depth={0.1} />
+      <meshBasicMaterial color="gray" />
     </mesh>
   );
 }
@@ -85,9 +112,9 @@ function App() {
             <pointLight position={[10, 10, 10]} />
             <Button position={[0, 1, -0.2]} />
             <group>
-              <Panel1 />
-              <Panel2 />
-              <Panel3 />
+              <LeftPanel />
+              <MainPanel />
+              <RightPanel />
             </group>
             <Controllers />
             <OrbitControls maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} />
