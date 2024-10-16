@@ -1,13 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import * as THREE from 'three'
-import { DoubleSide } from 'three';
 import { createRoot } from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
 import { useFrame } from '@react-three/fiber';
 import React, { Suspense, useState, useRef } from 'react'
 import { Interactive, XR, ARButton, Controllers } from '@react-three/xr'
-import { OrbitControls, useCursor, CameraControls, Gltf, Text, Preload, MeshPortalMaterial } from '@react-three/drei';
+import { OrbitControls, useCursor, CameraControls, Gltf, Text, Preload, MeshPortalMaterial, Html } from '@react-three/drei';
 import { useRoute, useLocation } from 'wouter'
 import { easing, geometry } from 'maath'
 import { suspend } from 'suspend-react'
@@ -28,7 +27,7 @@ function Box({ color, size, scale, children, ...rest }) {
 
 function Button(props) {
   const [hover, setHover] = useState(false)
-  const [color, setColor] = useState('blue')
+  const [color, setColor] = useState('white')
 
   const onSelect = () => {
     setColor((Math.random() * 0xffffff) | 0)
@@ -47,66 +46,46 @@ function Button(props) {
   )
 }
 
-function Panel1() {
-  return (
-    <mesh position={[-1.5, 0.1, -0.2]}>
-      <planeGeometry />
-      <meshBasicMaterial color="blue" />
-    </mesh>
-  );
-}
-
-function Panel2() {
-  return (
-    <mesh position={[0, 0.1, -0.2]}>
-      <planeGeometry />
-      <meshBasicMaterial color="dark-grey" />
-    </mesh>
-  );
-}
-
-function Panel3() {
-  return (
-    <mesh position={[1.5, 0.1, -0.2]}>
-      <planeGeometry />
-      <meshBasicMaterial color="gray" />
-    </mesh>
-  );
-}
-
 function LeftPanel() {
   return (
-    <mesh position={[-1.5, 0.5, -2.5]}>
-      <planeGeometry width={0.5} height={1} depth={0.1} />
-      <meshBasicMaterial color="gray" />
+    <mesh position={[-1.5, 0.5, -2]} scale={[1.5, 2.5, 1]} rotation={[Math.PI / 1, -1, 0]}>
+      <planeBufferGeometry />
+      <meshBasicMaterial color="grey" side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
 function MainPanel() {
   return (
-    <mesh position={[0, 0.5, -2.5]}>
-      <planeGeometry width={1} height={0.75} />
-      <meshBasicMaterial color="white" />
+    <mesh position={[0, 0.5, -3]} scale={[1.5, 2.5, 1]}>
+      <planeBufferGeometry />
+      <meshBasicMaterial color="wite" side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
 function RightPanel() {
   return (
-    <mesh position={[1.5, 0.5, -2.5]}>
-      <planeGeometry width={0.5} height={1} depth={0.1} />
-      <meshBasicMaterial color="gray" />
+    <mesh position={[1.5, 0.5, -2]}  scale={[1.5, 2.5, 1]} rotation={[Math.PI / 1, 1, 0]}>
+      <planeBufferGeometry />
+      <meshBasicMaterial color="grey" side={THREE.DoubleSide} />
     </mesh>
+  );
+}
+
+function ToolTip1() {
+  return (
+    <Html center position={[-5, 1, -5]}>
+      <p style={{width: '200px'}}>Some info always in view</p>
+    </Html>
   );
 }
 
 function App() {
   return (
     <>
-      <ARButton />
-      <div style={{ height: '100vh', width: '100vw' }}>
-        <Canvas>
+      <ARButton /> 
+        <Canvas style={{ height: '100vh', width: '100vw' }}>
           <XR referenceSpace="local">
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
@@ -115,12 +94,12 @@ function App() {
               <LeftPanel />
               <MainPanel />
               <RightPanel />
+              <ToolTip1 />
             </group>
             <Controllers />
             <OrbitControls maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} />
           </XR>
         </Canvas>
-      </div>
     </>
   );
 }
