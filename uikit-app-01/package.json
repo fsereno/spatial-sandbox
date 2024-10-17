@@ -1,22 +1,25 @@
 {
-  "name": "my-app",
+  "name": "uikit-app-01",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@react-three/drei": "9.32.7",
+    "@react-three/drei": "^9.114.4",
     "@react-three/fiber": "^8.17.10",
-    "@react-three/xr": "5.0.3",
     "@react-three/uikit": "^0.6.3",
+    "@react-three/xr": "^6.2.15",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "maath": "^0.10.8",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.114",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
-    "three": "0.145.0",
-    "web-vitals": "^2.1.4",
-    "wouter": "2.11.0"
+    "three": "^0.169.0",
+    "typescript": "^5.4.2",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "HTTPS=true react-scripts start",
