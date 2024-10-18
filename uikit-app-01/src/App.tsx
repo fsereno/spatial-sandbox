@@ -4,12 +4,14 @@ import './index.css';
 import { Canvas } from '@react-three/fiber'
 import { Root, Fullscreen, Container, Text } from '@react-three/uikit'
 import { XR, createXRStore, XRLayer, XROrigin} from '@react-three/xr'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/default/card';
 
 //https://drei.docs.pmnd.rs/getting-started/introduction
 //https://pmndrs.github.io/uikit/docs/getting-started/components-and-properties#container
+//https://github.com/pmndrs/xr/blob/main/examples/uikit/app.tsx#L38
+//https://pmndrs.github.io/xr/docs/tutorials/interactions
 
 const store = createXRStore()
 
@@ -22,7 +24,7 @@ function MainPanel() {
   );
 }
 
-function UI() {
+function CardComponent() {
   return(
       <Card width={380} >
         <CardHeader>
@@ -47,19 +49,45 @@ function UI() {
   )
 }
 
-function App() {
+function DraggableCube() {
+  const isDraggingRef = useRef(false)
+  const meshRef = useRef<THREE.Mesh>(null)
 
+  return (
+    <mesh
+      ref={meshRef}
+      onPointerDown={(e) => {
+        if (isDraggingRef.current) {
+          return
+ }
+        isDraggingRef.current = true
+        meshRef.current?.position.copy(e.point)
+ }}
+      onPointerMove={(e) => {
+        if (!isDraggingRef.current) {
+          return
+ }
+        meshRef.current?.position.copy(e.point)
+ }}
+      onPointerUp={(e) => (isDraggingRef.current = false)}
+    >
+      <boxGeometry />
+    </mesh>
+ )
+}
+
+
+function App() {
   return (
     <>
       <button onClick={() => store.enterAR()}>Enter AR</button>
       <button onClick={() => store.enterVR()}>Enter VR</button>
       <Canvas>
         <XR store={store}>
-          
           <group position={[0, 1.5, -0.5]}>
           <Root pixelSize={0.001}>
-            <MainPanel/>
-            <UI/>
+            <CardComponent/>
+           
           </Root>
           </group>
         </XR>
