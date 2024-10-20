@@ -2,7 +2,7 @@ import { OrbitControls } from '@react-three/drei';
 import './App.css';
 import './index.css';
 import { Canvas, useThree } from '@react-three/fiber'
-import { Root, Fullscreen, Container, Text } from '@react-three/uikit'
+import { Root, Fullscreen, Container, Text, Input } from '@react-three/uikit'
 import { XR, createXRStore, XRLayer, XROrigin } from '@react-three/xr'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
@@ -22,7 +22,7 @@ const store = createXRStore()
 
 function CardComponent() {
   return(
-      <Card width={250} >
+      <Card width={380}>
         <CardHeader>
           <CardTitle>
             <Text>Notifications</Text>
@@ -39,28 +39,12 @@ function CardComponent() {
           </Container>
         </CardContent>
         <CardFooter>
-        <Text>Footer</Text>
+        <Container flexDirection="row" alignItems="center" gap={16} borderRadius={6} borderWidth={1} padding={16}>
+          <Input fontWeight="bold" />
+        </Container>
         </CardFooter>
       </Card>
   )
-}
-
-function DragCube() {
-  const bind = useDrag(({ movement, xy, delta }) => console.log(...xy, 'movement', ...movement, 'delta', ...delta))
-  return (
-    <mesh {...(bind() as any)} scale={0.1}>
-      <boxGeometry />
-      <meshBasicMaterial color="blue" />
-    </mesh>
-  )
-}
-
-export function SwitchToXRPointerEvents() {
-  const domElement = useThree((s) => s.gl.domElement)
-  const camera = useThree((s) => s.camera)
-  const scene = useThree((s) => s.scene)
-  useEffect(() => forwardHtmlEvents(domElement, () => camera, scene), [domElement, camera, scene])
-  return null
 }
 
 function App() {
