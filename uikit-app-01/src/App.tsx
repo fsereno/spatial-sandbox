@@ -3,7 +3,7 @@ import './App.css';
 import './index.css';
 import { Canvas, useThree } from '@react-three/fiber'
 import { Root, Fullscreen, Container, Text } from '@react-three/uikit'
-import { XR, createXRStore, XRLayer, XROrigin} from '@react-three/xr'
+import { XR, createXRStore, XRLayer, XROrigin } from '@react-three/xr'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useDrag } from '@use-gesture/react'
@@ -22,7 +22,7 @@ const store = createXRStore()
 
 function CardComponent() {
   return(
-      <Card width={380} >
+      <Card width={250} >
         <CardHeader>
           <CardTitle>
             <Text>Notifications</Text>
@@ -66,11 +66,12 @@ export function SwitchToXRPointerEvents() {
 function App() {
   return (
     <>
-      <button onClick={() => store.enterAR()}>Enter AR</button>
-      <button onClick={() => store.enterVR()}>Enter VR</button>
-      <Canvas>
+    <div className='controls'>
+        <button onClick={() => store.enterAR()}>Enter AR</button>
+      </div>
+      <Canvas style={{ height: '100vh', width: '100vw' }}>
         <XR store={store}>
-          <group position={[0, 1.5, -0.5]}>
+          <group position={[-0.25, 1.25, -0.5]}>
             <Root pixelSize={0.001}>
               <CardComponent/>
             </Root>
@@ -78,6 +79,7 @@ function App() {
             <ambientLight />
           </group>
         </XR>
+        <OrbitControls/>
       </Canvas>
     </>
   );
