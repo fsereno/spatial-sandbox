@@ -1,4 +1,4 @@
-import { Center, OrbitControls } from '@react-three/drei';
+import { CameraControls, Center, OrbitControls } from '@react-three/drei';
 import './App.css';
 import './index.css';
 import { Canvas, useThree } from '@react-three/fiber'
@@ -32,16 +32,13 @@ function CardComponent() {
           </CardDescription>
         </CardHeader>
         <CardContent flexDirection="column" gap={16}>
-          <Container flexDirection="row" alignItems="center" gap={16} borderRadius={6} borderWidth={1} padding={16}>
+          <Container flexDirection="row" alignItems="center" gap={16} borderRadius={6} borderWidth={2} padding={16}>
             <Text fontSize={14} lineHeight={20}>
               Send notifications to device.
             </Text>
           </Container>
         </CardContent>
         <CardFooter>
-        <Container flexDirection="row" alignItems="center" gap={16} borderRadius={6} borderWidth={1} padding={16}>
-        
-        </Container>
         </CardFooter>
       </Card>
   )
@@ -53,7 +50,7 @@ function App() {
     <div className='controls'>
         <button onClick={() => store.enterAR()}>Enter AR</button>
       </div>
-      <Canvas style={{ height: '100vh', width: '100vw' }}>
+      <Canvas style={{ height: '100vh', width: '100vw' }} orthographic camera={{ position: [0, 0, 100], zoom: 100 }}>
         <ambientLight intensity={0.5}/>
         <directionalLight position={[10, 10, 0]} intensity={10} castShadow />
         <XR store={store}>
@@ -66,7 +63,7 @@ function App() {
           </Root>
         </group>
         </XR>
-        <OrbitControls/>
+        <CameraControls/>
       </Canvas>
     </>
   );
