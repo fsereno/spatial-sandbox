@@ -1,4 +1,4 @@
-import { OrbitControls } from '@react-three/drei';
+import { Center, OrbitControls } from '@react-three/drei';
 import './App.css';
 import './index.css';
 import { Canvas, useThree } from '@react-three/fiber'
@@ -40,7 +40,7 @@ function CardComponent() {
         </CardContent>
         <CardFooter>
         <Container flexDirection="row" alignItems="center" gap={16} borderRadius={6} borderWidth={1} padding={16}>
-          Footer Content
+        
         </Container>
         </CardFooter>
       </Card>
@@ -54,17 +54,17 @@ function App() {
         <button onClick={() => store.enterAR()}>Enter AR</button>
       </div>
       <Canvas style={{ height: '100vh', width: '100vw' }}>
+        <ambientLight intensity={0.5}/>
+        <directionalLight position={[10, 10, 0]} intensity={10} castShadow />
         <XR store={store}>
-          <group position={[0, 1.25, -0.5]}>
-            <Root pixelSize={0.001}>
-              <Container flexDirection="row" gap={50}>
-                <CardComponent />
-                <CardComponent />
-              </Container>
-            </Root>
-          </group>
-          <directionalLight position={[1, 8, 1]} castShadow />
-          <ambientLight />
+        <group position={[0, 1.25, -0.5]}>
+          <Root pixelSize={0.001}>
+            <Container flexDirection="row" gap={50}>
+              <CardComponent />
+              <CardComponent />
+            </Container>
+          </Root>
+        </group>
         </XR>
         <OrbitControls/>
       </Canvas>
