@@ -40,7 +40,7 @@ function CardComponent() {
         </CardContent>
         <CardFooter>
         <Container flexDirection="row" alignItems="center" gap={16} borderRadius={6} borderWidth={1} padding={16}>
-          <Input fontWeight="bold" />
+          Footer Content
         </Container>
         </CardFooter>
       </Card>
@@ -55,13 +55,16 @@ function App() {
       </div>
       <Canvas style={{ height: '100vh', width: '100vw' }}>
         <XR store={store}>
-          <group position={[-0.25, 1.25, -0.5]}>
+          <group position={[0, 1.25, -0.5]}>
             <Root pixelSize={0.001}>
-              <CardComponent/>
+              <Container flexDirection="row" gap={50}>
+                <CardComponent />
+                <CardComponent />
+              </Container>
             </Root>
-            <directionalLight position={[1, 8, 1]} castShadow />
-            <ambientLight />
           </group>
+          <directionalLight position={[1, 8, 1]} castShadow />
+          <ambientLight />
         </XR>
         <OrbitControls/>
       </Canvas>
