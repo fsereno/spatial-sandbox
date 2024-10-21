@@ -1,7 +1,7 @@
 import { CameraControls, Center, OrbitControls } from '@react-three/drei';
 import './App.css';
 import './index.css';
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas, Euler, ExtendedColors, Layers, Matrix4, NodeProps, NonFunctionKeys, Overwrite, Quaternion, useLoader, useThree, Vector3 } from '@react-three/fiber'
 import { Root, Fullscreen, Container, Text, Input } from '@react-three/uikit'
 import { XR, createXRStore, XRLayer, XROrigin } from '@react-three/xr'
 import { useEffect, useRef, useState } from 'react'
@@ -9,6 +9,10 @@ import * as THREE from 'three'
 import { useDrag } from '@use-gesture/react'
 import { forwardHtmlEvents } from '@pmndrs/pointer-events'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/default/card';
+import { useGLTF } from '@react-three/drei'
+import { EventHandlers } from '@react-three/fiber/dist/declarations/src/core/events';
+import { JSX } from 'react/jsx-runtime';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 //https://drei.docs.pmnd.rs/getting-started/introduction
 //https://pmndrs.github.io/uikit/docs/getting-started/components-and-properties#container
@@ -44,6 +48,15 @@ function CardComponent() {
   )
 }
 
+const Model = () => {
+  const gltf = useLoader(GLTFLoader, "/water_pump/scene.gltf");
+  return (
+    <>
+      <primitive object={gltf.scene} scale={0.4}/>
+    </>
+  );
+};
+
 function App() {
   return (
     <>
@@ -61,6 +74,7 @@ function App() {
               <CardComponent />
             </Container>
           </Root>
+          <Model/>
         </group>
         </XR>
         <CameraControls/>
